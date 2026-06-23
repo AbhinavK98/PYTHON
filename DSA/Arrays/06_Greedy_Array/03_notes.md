@@ -1,0 +1,27 @@
+# Greedy on Arrays Pattern Notes
+
+    ## Top Interview Questions
+
+    - Best Time to Buy and Sell Stock (#121)
+- Majority Element (#169)
+- Product of Array Except Self (#238)
+- Next Permutation (#31)
+
+    ## Revision in 5 minutes
+
+    - Identify pattern clue in prompt.
+    - Write brute-force quickly.
+    - State bottleneck and optimize.
+    - Dry run one sample + one edge case.
+    - Mention time and space with reason.
+
+    ## Revision in 1 minute
+
+    - Clue -> Pattern -> Template -> Dry run -> Complexity
+
+    ## Most Important Concepts
+
+    - Invariant: what remains true every iteration.
+    - Data structure choice: why this structure.
+    - Pointer/state updates: why safe and correct.
+    - Edge-case discipline.

@@ -6,15 +6,20 @@ from typing import List
 
 class BruteForce:
     def solve(self, target: int, nums: List[int]) -> int:
-        answer = float('inf')
-        for i in range(len(nums)):
+        n = len(nums)
+        answer = n + 1
+        for i in range(n):
             current = 0
-            for j in range(i, len(nums)):
+            for j in range(i, n):
                 current += nums[j]
                 if current >= target:
-                    answer = min(answer, j - i + 1)
+                    length = j - i + 1
+                    if length < answer:
+                        answer = length
                     break
-        return 0 if answer == float('inf') else int(answer)
+        if answer == n + 1:
+            return 0
+        return answer
 
 
 # Complexity (BruteForce)
@@ -24,7 +29,23 @@ class BruteForce:
 
 class BetterSolution:
     def solve(self, target: int, nums: List[int]) -> int:
-        return OptimalSolution().solve(target, nums)
+        left = 0
+        window_sum = 0
+        best = len(nums) + 1
+        n = len(nums)
+
+        for right in range(n):
+            window_sum += nums[right]
+            while window_sum >= target:
+                length = right - left + 1
+                if length < best:
+                    best = length
+                window_sum -= nums[left]
+                left += 1
+
+        if best == n + 1:
+            return 0
+        return best
 
 
 # Complexity (BetterSolution)
@@ -36,16 +57,21 @@ class OptimalSolution:
     def solve(self, target: int, nums: List[int]) -> int:
         left = 0
         window_sum = 0
-        best = float('inf')
+        best = len(nums) + 1
+        n = len(nums)
 
-        for right, value in enumerate(nums):
-            window_sum += value
+        for right in range(n):
+            window_sum += nums[right]
             while window_sum >= target:
-                best = min(best, right - left + 1)
+                length = right - left + 1
+                if length < best:
+                    best = length
                 window_sum -= nums[left]
                 left += 1
 
-        return 0 if best == float('inf') else int(best)
+        if best == n + 1:
+            return 0
+        return best
 
 
 # Complexity (OptimalSolution)

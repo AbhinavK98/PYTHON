@@ -6,8 +6,13 @@ from typing import List
 
 class BruteForce:
     def solve(self, nums: List[int], val: int) -> int:
-        kept = [x for x in nums if x != val]
-        nums[: len(kept)] = kept
+        kept = []
+        n = len(nums)
+        for i in range(n):
+            if nums[i] != val:
+                kept.append(nums[i])
+        for i in range(len(kept)):
+            nums[i] = kept[i]
         return len(kept)
 
 
@@ -19,7 +24,8 @@ class BruteForce:
 class BetterSolution:
     def solve(self, nums: List[int], val: int) -> int:
         write = 0
-        for read in range(len(nums)):
+        n = len(nums)
+        for read in range(n):
             if nums[read] != val:
                 nums[write] = nums[read]
                 write += 1

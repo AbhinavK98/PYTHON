@@ -21,7 +21,19 @@ class BruteForce:
 
 class BetterSolution:
     def solve(self, height: List[int]) -> int:
-        return OptimalSolution().solve(height)
+        left = 0
+        right = len(height) - 1
+        best = 0
+        while left < right:
+            width = right - left
+            area = min(height[left], height[right]) * width
+            if area > best:
+                best = area
+            if height[left] <= height[right]:
+                left += 1
+            else:
+                right -= 1
+        return best
 
 
 # Complexity (BetterSolution)
@@ -31,12 +43,14 @@ class BetterSolution:
 
 class OptimalSolution:
     def solve(self, height: List[int]) -> int:
-        left, right = 0, len(height) - 1
+        left = 0
+        right = len(height) - 1
         best = 0
         while left < right:
             width = right - left
             area = min(height[left], height[right]) * width
-            best = max(best, area)
+            if area > best:
+                best = area
 
             if height[left] <= height[right]:
                 left += 1

@@ -14,15 +14,16 @@ For each number x, we need (target - x). A hash map lets us answer
 "Have we seen this needed value?" in O(1) average time.
 """
 
-from typing import Dict, List
+from typing import List
 
 
 class BruteForce:
     """Check every pair using nested loops."""
 
     def solve(self, nums: List[int], target: int) -> List[int]:
-        for i in range(len(nums)):
-            for j in range(i + 1, len(nums)):
+        n = len(nums)
+        for i in range(n):
+            for j in range(i + 1, n):
                 if nums[i] + nums[j] == target:
                     return [i, j]
         return []
@@ -37,10 +38,14 @@ class BetterSolution:
     """Sort copy + two pointers (keeps original indices separately)."""
 
     def solve(self, nums: List[int], target: int) -> List[int]:
-        indexed = [(value, index) for index, value in enumerate(nums)]
-        indexed.sort(key=lambda item: item[0])
+        n = len(nums)
+        indexed = []
+        for i in range(n):
+            indexed.append((nums[i], i))
+        indexed.sort()
 
-        left, right = 0, len(indexed) - 1
+        left = 0
+        right = n - 1
         while left < right:
             current_sum = indexed[left][0] + indexed[right][0]
             if current_sum == target:
@@ -61,13 +66,14 @@ class OptimalSolution:
     """One-pass hash map complement lookup."""
 
     def solve(self, nums: List[int], target: int) -> List[int]:
-        seen: Dict[int, int] = {}
+        seen = {}
+        n = len(nums)
 
-        for index, value in enumerate(nums):
-            complement = target - value
+        for i in range(n):
+            complement = target - nums[i]
             if complement in seen:
-                return [seen[complement], index]
-            seen[value] = index
+                return [seen[complement], i]
+            seen[nums[i]] = i
 
         return []
 

@@ -19,7 +19,13 @@ class BruteForce:
 
 class BetterSolution:
     def solve(self, nums: List[int]) -> List[int]:
-        return OptimalSolution().solve(nums)
+        running = 0
+        answer = []
+        n = len(nums)
+        for i in range(n):
+            running += nums[i]
+            answer.append(running)
+        return answer
 
 
 # Complexity (BetterSolution)
@@ -30,9 +36,10 @@ class BetterSolution:
 class OptimalSolution:
     def solve(self, nums: List[int]) -> List[int]:
         running = 0
-        answer: List[int] = []
-        for value in nums:
-            running += value
+        answer = []
+        n = len(nums)
+        for i in range(n):
+            running += nums[i]
             answer.append(running)
         return answer
 

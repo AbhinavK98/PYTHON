@@ -6,7 +6,12 @@ from typing import List
 
 class BruteForce:
     def solve(self, nums: List[int]) -> List[int]:
-        return sorted(value * value for value in nums)
+        n = len(nums)
+        squares = []
+        for i in range(n):
+            squares.append(nums[i] * nums[i])
+        squares.sort()
+        return squares
 
 
 # Complexity (BruteForce)
@@ -16,20 +21,37 @@ class BruteForce:
 
 class BetterSolution:
     def solve(self, nums: List[int]) -> List[int]:
-        negatives = [value * value for value in nums if value < 0][::-1]
-        non_negatives = [value * value for value in nums if value >= 0]
+        negatives = []
+        non_negatives = []
+        n = len(nums)
+        for i in range(n):
+            square = nums[i] * nums[i]
+            if nums[i] < 0:
+                negatives.append(square)
+            else:
+                non_negatives.append(square)
 
-        merged: List[int] = []
-        i = j = 0
-        while i < len(negatives) and j < len(non_negatives):
-            if negatives[i] <= non_negatives[j]:
-                merged.append(negatives[i])
+        # negatives were squared in order; reverse so largest comes first
+        reversed_negatives = []
+        for i in range(len(negatives) - 1, -1, -1):
+            reversed_negatives.append(negatives[i])
+
+        merged = []
+        i = 0
+        j = 0
+        while i < len(reversed_negatives) and j < len(non_negatives):
+            if reversed_negatives[i] <= non_negatives[j]:
+                merged.append(reversed_negatives[i])
                 i += 1
             else:
                 merged.append(non_negatives[j])
                 j += 1
-        merged.extend(negatives[i:])
-        merged.extend(non_negatives[j:])
+        while i < len(reversed_negatives):
+            merged.append(reversed_negatives[i])
+            i += 1
+        while j < len(non_negatives):
+            merged.append(non_negatives[j])
+            j += 1
         return merged
 
 

@@ -6,13 +6,14 @@ Difficulty: Easy
 Pattern: HashMap/HashSet lookup
 """
 
-from typing import List, Set
+from typing import List
 
 
 class BruteForce:
     def solve(self, nums: List[int]) -> bool:
-        for i in range(len(nums)):
-            for j in range(i + 1, len(nums)):
+        n = len(nums)
+        for i in range(n):
+            for j in range(i + 1, n):
                 if nums[i] == nums[j]:
                     return True
         return False
@@ -25,9 +26,9 @@ class BruteForce:
 
 class BetterSolution:
     def solve(self, nums: List[int]) -> bool:
-        # Sorting makes equal values adjacent.
         sorted_nums = sorted(nums)
-        for i in range(1, len(sorted_nums)):
+        n = len(sorted_nums)
+        for i in range(1, n):
             if sorted_nums[i] == sorted_nums[i - 1]:
                 return True
         return False
@@ -40,11 +41,12 @@ class BetterSolution:
 
 class OptimalSolution:
     def solve(self, nums: List[int]) -> bool:
-        seen: Set[int] = set()
-        for value in nums:
-            if value in seen:
+        seen = set()
+        n = len(nums)
+        for i in range(n):
+            if nums[i] in seen:
                 return True
-            seen.add(value)
+            seen.add(nums[i])
         return False
 
 

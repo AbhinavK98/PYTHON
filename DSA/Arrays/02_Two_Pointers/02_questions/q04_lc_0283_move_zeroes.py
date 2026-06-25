@@ -6,9 +6,16 @@ from typing import List
 
 class BruteForce:
     def solve(self, nums: List[int]) -> None:
-        non_zero = [x for x in nums if x != 0]
-        zero_count = len(nums) - len(non_zero)
-        nums[:] = non_zero + [0] * zero_count
+        non_zero = []
+        n = len(nums)
+        for i in range(n):
+            if nums[i] != 0:
+                non_zero.append(nums[i])
+        zero_count = n - len(non_zero)
+        for i in range(len(non_zero)):
+            nums[i] = non_zero[i]
+        for i in range(len(non_zero), n):
+            nums[i] = 0
 
 
 # Complexity (BruteForce)
@@ -19,7 +26,8 @@ class BruteForce:
 class BetterSolution:
     def solve(self, nums: List[int]) -> None:
         write = 0
-        for read in range(len(nums)):
+        n = len(nums)
+        for read in range(n):
             if nums[read] != 0:
                 nums[write], nums[read] = nums[read], nums[write]
                 write += 1

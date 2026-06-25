@@ -20,8 +20,9 @@ class BruteForceNumArray:
 class BetterNumArray:
     def __init__(self, nums: List[int]) -> None:
         self.prefix = [0]
-        for value in nums:
-            self.prefix.append(self.prefix[-1] + value)
+        n = len(nums)
+        for i in range(n):
+            self.prefix.append(self.prefix[-1] + nums[i])
 
     def sum_range(self, left: int, right: int) -> int:
         return self.prefix[right + 1] - self.prefix[left]

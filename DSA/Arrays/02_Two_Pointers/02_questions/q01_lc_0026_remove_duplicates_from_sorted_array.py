@@ -7,8 +7,8 @@ from typing import List
 class BruteForce:
     def solve(self, nums: List[int]) -> int:
         unique = sorted(set(nums))
-        for i, value in enumerate(unique):
-            nums[i] = value
+        for i in range(len(unique)):
+            nums[i] = unique[i]
         return len(unique)
 
 
